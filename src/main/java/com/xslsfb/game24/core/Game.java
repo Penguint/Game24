@@ -17,9 +17,12 @@ public class Game {
     }
 
     private void deal() { // 发牌
+        for (int i = 0; i < 4; i++) {
+            card[i] = new Card(i);
+        }
     }
 
-    public void select(int pos) throws InvalidPosition {
+    public void select(int pos) throws InvalidPosition, IllegalOperation {
         // 判断 pos 是否在 0 ~ 3 之间，不在的话抛出 InvalidPosition
 
         // 判断操作符是否为空
