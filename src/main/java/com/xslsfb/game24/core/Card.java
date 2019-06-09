@@ -16,7 +16,7 @@ class Card {
         this.selected = step;
     }
     public void deselect() { // 取消选择这张牌
-
+        this.selected = 0;
     }
 
 }

@@ -4,8 +4,8 @@ public class InvalidOperator extends Exception {
     private static final long serialVersionUID = 1L;
     private char c;
 
-    public InvalidOperator(char c) {
-        this.c = c;
+    public InvalidOperator(char ch) {
+        this.c = ch;
     }
 
     @Override
