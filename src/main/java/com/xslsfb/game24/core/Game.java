@@ -15,14 +15,14 @@ public class Game {
 
 	public void start() { // 开局
 		deal(); // 发牌
-
 		operator = 0; // 清空操作符
 		generateHints(); // 生成答案列表
 	}
 
 	private void deal() {
-		Random r = new Random();// 发牌
+		Random r = new Random(); // 发牌
 		// int num=0;
+		hintList = new String[0];
 		while (hintList.length == 0) {
 			for (int i = 0; i < 4; i++) {
 				card[i] = new Card(r.nextInt(13) + 1);
@@ -54,41 +54,36 @@ public class Game {
 		// **如果是，单选
 		// **如果不是，多选
 
-		if (this.operator > 0) {
+		if (this.operator > 0 && numberOfSelectedCard(card) == 2) {
 			int index1 = 0, index2 = 0;
 			int rank1 = 0, rank2 = 0;
 			for (int i = 0; i < 4; i++) {
 				if (card[i].selected == 1) {
 					index1 = i;
 					rank1 = card[index1].rank;
-					card[i].enabled = false;
 				}
 				if (card[i].selected == 2) {
 					index2 = i;
 					rank2 = card[index2].rank;
 				}
 			}
-			if (numberOfSelectedCard(card) == 2) { // do operation
-				if (this.operator != '/') {
+			// do operation
+			if (this.operator != '/') {
+				card[index1].enabled = false;
+				card[index2].rank = result(rank1, rank2);
+				for (int i = 0; i < 4; i++)
+					card[i].deselect();
+				operator = 0;
+			} else {
+				if ((rank2 == 0) || (rank1 % rank2 != 0)) {
+					throw new IllegalOperation(rank1, rank2, this.operator);
+				} else {
+					card[index1].enabled = false;
 					card[index2].rank = result(rank1, rank2);
+					// System.out.println("!");
 					for (int i = 0; i < 4; i++)
 						card[i].deselect();
 					operator = 0;
-				} else {
-					if (rank2 == 0 || rank1 % rank2 == 0) {
-						throw new IllegalOperation(rank1, rank2, this.operator);
-					} else {
-						card[index2].rank = result(rank1, rank2);
-						for (int i = 0; i < 4; i++)
-							card[i].deselect();
-						operator = 0;
-					}
-				}
-			}
-			if (isEndGame()) {
-				if (isWon()) {
-					///////
-				} else {
 				}
 			}
 		}
@@ -121,7 +116,7 @@ public class Game {
 	private int numberOfSelectedCard(Card[] card) {
 		int numOfcards = 0;
 		for (int i = 0; i < 4; i++) {
-			if (card[i].selected > 0) {
+			if (card[i].enabled && (card[i].selected > 0)) {
 				numOfcards++;
 			}
 		} // 返回有几张牌被选中了
@@ -198,11 +193,20 @@ public class Game {
 	public int getRank(int pos) {
 		return card[pos].rank;
 	}
+
 	public int getSelected(int pos) {
 		return card[pos].selected;
 	}
+
 	public boolean getEnabled(int pos) {
 		return card[pos].enabled;
 	}
-	
+
+	public void clear() {
+		operator = 0;
+		for (int i = 0; i < 4; i++) {
+			card[i].deselect();
+		}
+	}
+
 }

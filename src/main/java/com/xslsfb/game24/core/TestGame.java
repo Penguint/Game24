@@ -19,6 +19,10 @@ public class TestGame {
                 System.out.print("\nInput a position(1~4) or an operator(+, -, *, /): ");
                 String s = input.nextLine();
                 char c = s.charAt(0);
+                if (c == 's') {
+                    game.start();
+                    continue;
+                }
                 if (Character.isDigit(c))
                     try {
                         game.select(Integer.parseInt(c + "") - 1);
@@ -27,6 +31,7 @@ public class TestGame {
                         continue;
                     } catch (IllegalOperation e) {
                         System.out.println(e.toString());
+                        game.clear();
                         continue;
                     }
                 else
