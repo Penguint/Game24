@@ -194,4 +194,15 @@ public class Game {
 	public String getHint() { // 得到一个答案
 		return "";
 	}
+
+	public int getRank(int pos) {
+		return card[pos].rank;
+	}
+	public int getSelected(int pos) {
+		return card[pos].selected;
+	}
+	public boolean getEnabled(int pos) {
+		return card[pos].enabled;
+	}
+	
 }

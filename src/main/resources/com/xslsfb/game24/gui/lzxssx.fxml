@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3a85a6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xslsfb.game24.gui.FXMLController">
+  <children>
+    <Pane layoutX="23.0" layoutY="21.0" prefHeight="349.0" prefWidth="547.0" style="-fx-background-color: #204988; -fx-background-radius: 20 20 20 20;">
+      <children>
+        <Label fx:id="tooltip" layoutX="286.0" layoutY="96.0" prefHeight="72.0" prefWidth="222.0" style="-fx-background-color: #32327c; -fx-background-radius: 20 20 20 20;" textFill="#fcf945" visible="true" />
+        <Button id="jia" fx:id="plusButton" layoutX="349.0" layoutY="174.0" minWidth="47.0" mnemonicParsing="false" onAction="#plus" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #f5926e; -fx-background-radius: 20 0 0 0;" text="+">
+          <font>
+            <Font size="16.0" fx:id="x2" />
+          </font>
+          <textFill>
+            <Color blue="0.267" green="0.757" red="0.929" fx:id="x1" />
+          </textFill>
+        </Button>
+        <Button id="jian" fx:id="minusButton" layoutX="397.0" layoutY="174.0" mnemonicParsing="false" onAction="#minus" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #588c7e; -fx-background-radius: 0 20 0 0;" text="-" textFill="$x1" />
+        <Button id="cheng" fx:id="multiButton" font="$x2" layoutX="349.0" layoutY="219.0" mnemonicParsing="false" onAction="#multi" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #588c7e; -fx-background-radius: 0 0 0 20;" text="*" textFill="$x1" />
+        <Button id="chu" fx:id="divButton" layoutX="397.0" layoutY="219.0" mnemonicParsing="false" onAction="#div" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #f5926e; -fx-background-radius: 0 0 20 0;" text="/" textFill="$x1" />
+        <ImageView fx:id="hint" fitHeight="42.0" fitWidth="36.0" layoutX="435.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@icon/light.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="reset" fitHeight="36.0" fitWidth="36.0" layoutX="381.0" layoutY="280.0" preserveRatio="true" smooth="true">
+          <image>
+            <Image url="@icon/reset.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="next" fitHeight="36.0" fitWidth="36.0" layoutX="323.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@icon/next.png" />
+          </image>
+        </ImageView>
+        <Pane fx:id="pane1" layoutX="19.0" layoutY="12.0" prefHeight="142.0" prefWidth="88.0">
+          <children>
+            <ImageView fx:id="card1" fitHeight="145.37309057603906" fitWidth="87.42646789550781" layoutX="0.0" layoutY="0.0" onMouseClicked="#select0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="28.0" prefHeight="62.0" prefWidth="84.0" text="25390" textAlignment="CENTER" textFill="BLACK">
+              <font>
+                <Font size="28.0" fx:id="x3" />
+              </font>
+            </Label>
+          </children>
+        </Pane>
+        <Pane fx:id="pane2" layoutX="161.0" layoutY="15.0" prefHeight="142.0" prefWidth="88.0">
+          <children>
+            <ImageView fx:id="card2" fitHeight="145.37309057603906" fitWidth="87.42646789550781" layoutX="0.0" layoutY="0.0" onMouseClicked="#select1" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="3.0" layoutY="29.0" prefHeight="62.0" prefWidth="84.0" text="24" textAlignment="CENTER" textFill="BLACK" />
+          </children>
+        </Pane>
+        <Pane fx:id="pane3" layoutX="19.0" layoutY="185.0" prefHeight="142.0" prefWidth="88.0">
+          <children>
+            <ImageView fx:id="card3" fitHeight="145.37309057603906" fitWidth="87.42646789550781" layoutX="0.0" layoutY="-2.0" onMouseClicked="#select2" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="label3" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="3.0" layoutY="29.0" prefHeight="62.0" prefWidth="84.0" text="24" textAlignment="CENTER" textFill="BLACK" />
+          </children>
+        </Pane>
+        <Pane fx:id="pane4" layoutX="160.0" layoutY="185.0" prefHeight="142.0" prefWidth="88.0">
+          <children>
+            <ImageView fx:id="card4" fitHeight="145.37309057603906" fitWidth="87.42646789550781" layoutX="0.0" layoutY="0.0" onMouseClicked="#select3" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="label4" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="3.0" layoutY="29.0" prefHeight="62.0" prefWidth="84.0" text="24" textAlignment="CENTER" textFill="BLACK" />
+          </children>
+        </Pane>
+            <Pane fx:id="graywall" prefHeight="349.0" prefWidth="547.0" style="-fx-background-color: #AAAAAA; -fx-background-radius: 20 20 20 20;" visible="false" />
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="297.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@icon/24.png" />
+          </image>
+        </ImageView>
+      <ImageView fx:id="startImage" fitHeight="91.0" fitWidth="183.0" layoutX="195.0" layoutY="139.0" onMouseClicked="#start" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/start.png" />
+               </image>
+            </ImageView>
+      </children>
+    </Pane>
+  </children>
+</AnchorPane>
