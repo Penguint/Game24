@@ -6,7 +6,9 @@ public class Game {
 	Card[] card = new Card[4]; // 四张牌
 	private int[] origin = new int[4]; // 发牌所生成的4个数，用于重置牌
 	private char operator; //
-	private String[] hintList = new String[0]; //
+	private String[] hintList; // 1536 = 4! * 4 ^ 3
+	private int numOfHints = 0;
+	private int hintPointer = 0;
 	// private int validCards;
 
 	public Game() {
@@ -21,13 +23,13 @@ public class Game {
 
 	private void deal() {
 		Random r = new Random(); // 发牌
-		// int num=0;
-		hintList = new String[0];
-		while (hintList.length == 0) {
+		numOfHints = 0;
+		while (numOfHints == 0) {
 			for (int i = 0; i < 4; i++) {
 				card[i] = new Card(r.nextInt(13) + 1);
 				origin[i] = card[i].rank;
 			}
+			System.out.println("generating hints...");
 			generateHints();
 		}
 		////// 需要判断是否能算出来，算不出重发////
@@ -147,7 +149,7 @@ public class Game {
 			card[i].selected = 0;
 		} // 重置游戏
 		operator = 0; // 清空操作符
-		generateHints(); // 生成答案列表
+		// generateHints(); // 生成答案列表
 	}
 
 	public boolean isEndGame() { // 判断游戏是否结束
@@ -182,12 +184,67 @@ public class Game {
 		return false;
 	}
 
+	private int result(int a, int b, char op) throws IllegalOperation {
+
+		switch (op) {
+		case '+':
+			return a + b;
+		case '-':
+			return a - b;
+		case 'x':
+			return a * b;
+		case '/':
+			if ((b == 0) || (a % b != 0)) {
+				throw new IllegalOperation(a, b, op);
+			} else
+				return a / b;
+		}
+		return 0;
+	}
+
 	private void generateHints() { // 生成答案列表
-		hintList = new String[1];
+		numOfHints = 0;
+		hintList = new String[1536];
+		int num[] = new int[4];
+		char op[] = new char[3];
+		char opList[] = { '+', '-', 'x', '/' };
+		int ans = 0;
+		for (int i = 0; i < 4; i++)
+			num[i] = origin[i];
+		for (int i = 0; i < 24; i++, nextPermutation(num)) { // 24 = 4!
+			for (int j = 0; j < 64; j++) { // 64 = 4 ^ 3
+				int jj = j;
+
+				// 00+0+0+
+				for (int k = 0; k < 3; k++, jj /= 4)
+					op[k] = opList[jj % 4];
+				try {
+					ans = result(result(result(num[0], num[1], op[0]), num[2], op[1]), num[3], op[2]);
+					if (ans == 24)
+						hintList[numOfHints++] = String.format("((%d %c %d) %c %d) %c %d", num[0], op[0], num[1], op[1],
+								num[2], op[2], num[3]);
+				} catch (IllegalOperation e) {
+				}
+
+				//00+00++
+				try {
+					ans = result(result(num[0], num[1], op[0]), result(num[2], num[3], op[2]), op[1]);
+					if (ans == 24)
+						hintList[numOfHints++] = String.format("(%d %c %d) %c (%d %c %d)", num[0], op[0], num[1], op[1],
+								num[2], op[2], num[3]);
+				} catch (IllegalOperation e) {
+				}
+
+			}
+		}
+		// hintList = new String[1];
 	}
 
 	public String getHint() { // 得到一个答案
-		return "";
+		if (numOfHints == 0)
+			return "";
+		else
+			return hintList[(hintPointer++) % numOfHints];
 	}
 
 	public int getRank(int pos) {
@@ -209,4 +266,30 @@ public class Game {
 		}
 	}
 
+	private void nextPermutation(int[] num) {
+		if (num.length <= 1)
+			return;
+		for (int i = num.length - 2; i >= 0; i--) {
+			if (num[i] < num[i + 1]) {
+				int j;
+				for (j = num.length - 1; j >= i; j--)
+					if (num[i] < num[j])
+						break;
+				// swap the two numbers.
+				num[i] = num[i] ^ num[j];
+				num[j] = num[i] ^ num[j];
+				num[i] = num[i] ^ num[j];
+				// sort the rest of arrays after the swap point.
+				Arrays.sort(num, i + 1, num.length);
+				return;
+			}
+		}
+		// reverse the arrays.
+		for (int i = 0; i < num.length / 2; i++) {
+			int tmp = num[i];
+			num[i] = num[num.length - i - 1];
+			num[num.length - i - 1] = tmp;
+		}
+		return;
+	}
 }

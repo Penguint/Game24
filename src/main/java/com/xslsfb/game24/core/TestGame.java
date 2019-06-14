@@ -5,8 +5,10 @@ import com.xslsfb.game24.core.Game;
 
 public class TestGame {
     public static void main(String[] args) {
+        
         Scanner input = new Scanner(System.in);
         Game game = new Game();
+
         game.start();
 
         for (int i = 0; i < 4; i++)
@@ -21,6 +23,10 @@ public class TestGame {
                 char c = s.charAt(0);
                 if (c == 's') {
                     game.start();
+                    continue;
+                }
+                if (c == 'h') {
+                    System.out.println(game.getHint());
                     continue;
                 }
                 if (Character.isDigit(c))

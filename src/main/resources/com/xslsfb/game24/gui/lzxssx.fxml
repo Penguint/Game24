@@ -13,7 +13,10 @@
   <children>
     <Pane layoutX="25.0" layoutY="24.0" prefHeight="634.0" prefWidth="974.0" style="-fx-background-color: #204988; -fx-background-radius: 20 20 20 20;">
       <children>
-        <Label fx:id="tooltip" layoutX="615.0" layoutY="185.0" prefHeight="122.0" prefWidth="325.0" style="-fx-background-color: #32327c; -fx-background-radius: 20 20 20 20;" textFill="#fcf945" visible="true" />
+        <Label fx:id="tooltip" alignment="CENTER" contentDisplay="CENTER" layoutX="615.0" layoutY="185.0" prefHeight="122.0" prefWidth="325.0" style="-fx-background-color: #32327c; -fx-background-radius: 20 20 20 20;" textAlignment="CENTER" textFill="#fcf945" visible="true">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
         <Button id="jia" fx:id="plusButton" layoutX="692.0" layoutY="325.0" minWidth="47.0" mnemonicParsing="false" onAction="#plus" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #f5926e; -fx-background-radius: 20 0 0 0;">
           <font>
             <Font size="16.0" fx:id="x2" />

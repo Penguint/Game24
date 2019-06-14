@@ -77,7 +77,7 @@ public class FXMLController implements Initializable {
 
     public void hint() {
         tooltip.setText(game.getHint());
-        tooltip.setText("1111");
+        // tooltip.setText("1111");
     }
 
     public void plus() throws InvalidOperator {

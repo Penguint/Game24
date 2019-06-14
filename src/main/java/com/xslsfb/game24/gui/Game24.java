@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Game24 extends Application {
@@ -18,6 +19,8 @@ public class Game24 extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
+        stage.setTitle("Game24");
+        stage.getIcons().add(new Image(getClass().getResource("icon/icon.png").toExternalForm()));
     }
 
     public static void main(String[] args) {
