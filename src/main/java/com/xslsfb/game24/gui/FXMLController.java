@@ -34,7 +34,7 @@ public class FXMLController implements Initializable {
         graywall.setVisible(true);
     }
 
-    private ImageView getImageView(int pos) {
+    private ImageView getImageView(int pos) { // 返回某张牌的ImageView
         switch (pos) {
         case 0:
             return card1;
@@ -49,7 +49,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void start() {
+    public void start() { // 点击开始按钮
         label1.setText("25891");
         graywall.setVisible(false);
         startImage.setVisible(false);
@@ -60,7 +60,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private Label getlabel(int pos) {
+    private Label getlabel(int pos) { // 返回某张牌的Label
         switch (pos) {
         case 0:
             return label1;
@@ -75,48 +75,48 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void hint() {
+    public void hint() { // 显示一行提示
         tooltip.setText(game.getHint());
         // tooltip.setText("1111");
     }
 
-    public void plus() throws InvalidOperator {
+    public void plus() throws InvalidOperator { // 按+
         game.setOperator('+');
         setOpButtonOpacity(0.5, 1, 1, 1);
     }
 
-    public void minus() throws InvalidOperator {
+    public void minus() throws InvalidOperator { // 按-
         game.setOperator('-');
         setOpButtonOpacity(1, 0.5, 1, 1);
     }
 
-    public void multi() throws InvalidOperator {
+    public void multi() throws InvalidOperator { // 按x
         game.setOperator('x');
         setOpButtonOpacity(1, 1, 0.5, 1);
     }
 
-    public void div() throws InvalidOperator {
+    public void div() throws InvalidOperator { // 按/
         game.setOperator('/');
         setOpButtonOpacity(1, 1, 1, 0.5);
     }
 
-    public void select0() {
+    public void select0() { // 选第0张牌
         select(0);
     }
 
-    public void select1() {
+    public void select1() { // 选第1张牌
         select(1);
     }
 
-    public void select2() {
+    public void select2() { // 选第2张牌
         select(2);
     }
 
-    public void select3() {
+    public void select3() { // 选第3张牌
         select(3);
     }
 
-    private void select(int pos) {
+    private void select(int pos) { // 选第pos张牌
 
         tooltip.setText("");
 
@@ -126,9 +126,9 @@ public class FXMLController implements Initializable {
             if (game.getSelected(i) == 1)
                 index1 = i;
 
-        try {
+        try { // 尝试选中这张牌
             game.select(pos);
-        } catch (IllegalOperation e) {
+        } catch (IllegalOperation e) { // 如果运算失败
             game.clear();
             for (int i = 0; i < 4; i++)
                 getImageView(i).setOpacity(1);
@@ -140,11 +140,11 @@ public class FXMLController implements Initializable {
             e.printStackTrace();
         }
 
-        if (game.getSelected(pos) == 1) {
+        if (game.getSelected(pos) == 1) { // 如果选中的是第一张牌
             for (int i = 0; i < 4; i++)
                 getImageView(i).setOpacity(1);
             getImageView(pos).setOpacity(0.5);
-        } else {
+        } else { // 第二张牌
             getlabel(index1).setVisible(false);
             getImageView(pos).setImage(new Image(getClass().getResourceAsStream("card/0.PNG")));
             getlabel(pos).setText(game.getRank(pos) + "");
@@ -152,19 +152,19 @@ public class FXMLController implements Initializable {
             setOpButtonOpacity(1, 1, 1, 1);
         }
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) // 消牌
             getImageView(i).setVisible(game.getEnabled(i));
         showGame(game);
-        if (game.isEndGame()) {
-            if (game.isWon())
+        if (game.isEndGame()) { // 如果终局
+            if (game.isWon()) // 如果赢 提示下一题
                 tooltip.setText("你赢了！请点击下一题继续吧！");
-            else
+            else // 如果输 提示重试
                 tooltip.setText("你输了！");
         }
     }
 
-    public void next() {
-        game.start();
+    public void next() { // 下一题
+        game.start(); // 重开
         showGame(game);
         start();
         for (int i = 0; i < 4; i++) {
@@ -175,7 +175,7 @@ public class FXMLController implements Initializable {
         setOpButtonOpacity(1, 1, 1, 1);
     }
 
-    public void reset() {
+    public void reset() { // 重置
         game.reset();
         tooltip.setText("游戏重置");
         for (int i = 0; i < 4; i++) {
@@ -188,7 +188,7 @@ public class FXMLController implements Initializable {
         setOpButtonOpacity(1, 1, 1, 1);
     }
 
-    private void setOpButtonOpacity(double plus, double minus, double multi, double div) {
+    private void setOpButtonOpacity(double plus, double minus, double multi, double div) { // 设置4个运算符的透明度
         plusButton.setOpacity(plus);
         minusButton.setOpacity(minus);
         multiButton.setOpacity(multi);
